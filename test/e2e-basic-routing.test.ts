@@ -16,7 +16,7 @@ class ArticleHandler {
     return ARTICLES;
   }
 
-  @Get('/:id(\\d+)')
+  @Get('/:id')
   public article(@Param('id', ParseNumberPipe) id: number) {
     return ARTICLES.find(article => article.id === id);
   }
