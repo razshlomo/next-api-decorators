@@ -9,11 +9,6 @@ class Handler {
     return { list: true };
   }
 
-  @Get('/:id(\\d+)')
-  public details() {
-    return { details: true };
-  }
-
   @Get('/item', { extraMethods: [HttpMethod.OPTIONS] })
   public item() {
     return { item: true };
@@ -22,6 +17,11 @@ class Handler {
   @Get('/item/child-item')
   public childItem() {
     return { childItem: true };
+  }
+
+  @Get('/:id')
+  public details() {
+    return { details: true };
   }
 }
 
