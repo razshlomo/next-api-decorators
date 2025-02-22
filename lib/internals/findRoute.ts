@@ -28,16 +28,18 @@ export function findRoute(
     ];
   }
 
-  const keys: Key[] = [];
+  let keys: Key[] = [];
   let match: RegExpExecArray | null | undefined;
-  const method = methods.find(f => {
-    match = pathToRegexp(f.path, keys).regexp.exec(path);
+  const method = methods.reverse().find(f => {
+    const { regexp, keys: keysTmp } = pathToRegexp(f.path);
+    keys = keysTmp;
+    match = regexp.exec(path);
 
     const condition =
       (f.method === requestMethod || f.options?.extraMethods?.includes(requestMethod as HttpMethod)) && match?.length;
 
     if (!condition) {
-      keys.length = 0;
+      keys = [];
       match = undefined;
     }
 
