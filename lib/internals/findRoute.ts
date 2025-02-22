@@ -31,7 +31,7 @@ export function findRoute(
   const keys: Key[] = [];
   let match: RegExpExecArray | null | undefined;
   const method = methods.find(f => {
-    match = pathToRegexp(f.path, keys).exec(path);
+    match = pathToRegexp(f.path, keys).regexp.exec(path);
 
     const condition =
       (f.method === requestMethod || f.options?.extraMethods?.includes(requestMethod as HttpMethod)) && match?.length;
