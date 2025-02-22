@@ -22,14 +22,16 @@ function findRoute(cls, requestMethod, path) {
             })
         ];
     }
-    const keys = [];
+    let keys = [];
     let match;
-    const method = methods.find(f => {
+    const method = methods.reverse().find(f => {
         var _a, _b;
-        match = pathToRegexp(f.path, keys).exec(path);
+        const { regexp, keys: keysTmp } = pathToRegexp(f.path);
+        keys = keysTmp;
+        match = regexp.exec(path);
         const condition = (f.method === requestMethod || ((_b = (_a = f.options) === null || _a === void 0 ? void 0 : _a.extraMethods) === null || _b === void 0 ? void 0 : _b.includes(requestMethod))) && (match === null || match === void 0 ? void 0 : match.length);
         if (!condition) {
-            keys.length = 0;
+            keys = [];
             match = undefined;
         }
         return condition;
